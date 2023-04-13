@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-console": "warn",
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"]
+  },
+  "ignorePatterns": ["node_modules/"]
+}
