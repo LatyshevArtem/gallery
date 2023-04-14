@@ -1,0 +1,9 @@
+@import "../../../variables.scss";
+
+.header-wrapper {
+  margin-bottom: 25px;
+
+  @media (min-width: $tablet-width) {
+    margin-bottom: 35px;
+  }
+}
