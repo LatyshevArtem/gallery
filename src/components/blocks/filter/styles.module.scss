@@ -1,0 +1,31 @@
+@import "../../../variables.scss";
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 15px;
+
+  @media (min-width: $tablet-width) {
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 20px;
+  }
+}
+
+.filter-option {
+  width: 100%;
+  max-width: 500px;
+
+  @media (min-width: $tablet-width) {
+    flex-grow: 1;
+    width: 160px;
+    max-width: 220px;
+  }
+
+  @media (min-width: $tablet-width) {
+    flex-grow: 1;
+    width: 220px;
+    max-width: 265px;
+  }
+}
