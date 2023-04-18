@@ -1,9 +1,9 @@
 import cn from 'classnames/bind';
-import styles from './styles.module.scss';
 import { useState, useRef } from 'react';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import Arrow from '../arrow/Arrow';
 import Input from '../input/Input';
+import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);
 

@@ -1,9 +1,9 @@
 import cn from 'classnames/bind';
-import styles from './styles.module.scss';
 import { useState, useRef } from 'react';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import ClearButton from '../clear-button/ClearButton';
 import Arrow from '../arrow/Arrow';
+import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);
 

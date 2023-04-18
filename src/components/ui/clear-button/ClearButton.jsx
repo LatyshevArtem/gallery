@@ -1,6 +1,6 @@
 import cn from 'classnames/bind';
-import styles from './styles.modules.scss';
 import { ReactComponent as ButtonIcon } from '../../../assets/images/cross.svg';
+import styles from './styles.modules.scss';
 
 const cx = cn.bind(styles);
 

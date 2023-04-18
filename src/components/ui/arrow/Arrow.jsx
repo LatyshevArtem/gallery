@@ -1,6 +1,6 @@
 import cn from 'classnames/bind';
-import styles from './styles.module.scss';
 import { ReactComponent as ArrowIcon } from '../../../assets/images/arrow.svg';
+import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);
 

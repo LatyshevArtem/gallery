@@ -1,5 +1,5 @@
-import styles from './styles.module.scss';
 import { ReactComponent as LogoImage } from '../../../assets/images/logo.svg';
+import styles from './styles.module.scss';
 
 const Logo = ({ href }) => {
   return (

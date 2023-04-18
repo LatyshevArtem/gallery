@@ -1,6 +1,6 @@
 import PageContent from '../../layout/page-content/PageContent';
-import styles from './styles.module.scss';
 import Header from '../../layout/header/Header';
+import styles from './styles.module.scss';
 
 const MainPage = () => {
   return (
