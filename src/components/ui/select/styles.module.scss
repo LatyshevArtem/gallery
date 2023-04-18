@@ -13,7 +13,12 @@
   cursor: pointer;
 
   @media (min-width: $tablet-width) {
+    width: 160px;
     padding-right: 58px;
+  }
+
+  @media (min-width: $big-tablet-width) {
+    width: 220px;
   }
 }
 
@@ -53,10 +58,12 @@
   position: absolute;
   top: 100%;
   left: -1px;
-  width: 280px;
+  width: inherit;
   border: 1px solid #000000;
   border-radius: 0 0 8px 8px;
   border-top: none;
+  padding-top: 10px;
+  padding-bottom: 25px;
   background-color: #ffffff;
   list-style: none;
   z-index: 1;
@@ -69,6 +76,10 @@
     height: 1px;
     background: rgba(0, 0, 0, 0.3);
   }
+
+  @media (min-width: $desktop-width) {
+    padding-bottom: 10px;
+  }
 }
 
 .option {
@@ -80,12 +91,18 @@
   white-space: nowrap;
   overflow: hidden;
 
-  &:last-child {
-    border-radius: 0 0 8px 8px;
-  }
-
   &:hover {
     color: #ffffff;
     background-color: #000000;
+  }
+
+  @media (min-width: $tablet-width) {
+    padding-left: 15px;
+    padding-right: 20px;
+  }
+
+  @media (min-width: $big-tablet-width) {
+    padding-left: 22px;
+    padding-right: 22px;
   }
 }
