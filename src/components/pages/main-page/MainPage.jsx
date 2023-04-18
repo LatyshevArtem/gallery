@@ -12,7 +12,9 @@ const MainPage = () => {
       <div className={cx('header-wrapper')}>
         <Header />
       </div>
-      <Filter />
+      <div className={cx('filter-wrapper')}>
+        <Filter />
+      </div>
     </PageContent>
   );
 };
