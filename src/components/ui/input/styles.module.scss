@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .input {
   width: 280px;
   height: 45px;
@@ -17,5 +19,19 @@
   &:focus {
     border-color: #000000;
     outline: none;
+  }
+
+  @media (min-width: $tablet-width) {
+    width: 160px;
+    font-size: 13px;
+    line-height: 15px;
+  }
+
+  @media (min-width: $big-tablet-width) {
+    width: 220px;
+  }
+
+  @media (min-width: $desktop-width) {
+    width: 265px;
   }
 }
