@@ -1,0 +1,84 @@
+@import "../../../variables.scss";
+
+.painting-container {
+  position: relative;
+  width: 280px;
+  height: 205px;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  @media (min-width: $tablet-width) {
+    width: 340px;
+    height: 249px;
+  }
+
+  @media (min-width: $big-tablet-width) {
+    width: 300px;
+    height: 230px;
+  }
+
+  @media (min-width: $desktop-width) {
+    width: 360px;
+    height: 275px;
+  }
+}
+
+.painting {
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  padding-top: 5px;
+  padding-left: 15px;
+  background-color: rgba(255, 255, 255, 0.75);
+  overflow: hidden;
+  transition: height 250ms;
+}
+
+.painting-container:hover .figcaption {
+  height: 145px;
+}
+
+.painting-name {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+  font-style: normal;
+}
+
+.painting-container:hover .painting-name {
+  margin-bottom: 6px;
+}
+
+.painting-data-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.painting-data-item {
+  display: flex;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.painting-data-name {
+  margin-right: 8px;
+  font-weight: 500;
+}
+
+.author-name {
+  margin-right: 4px;
+}
+
+.painting-data-value {
+  font-weight: 300;
+}
