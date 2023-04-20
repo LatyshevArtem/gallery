@@ -10,7 +10,7 @@ const PaintingsSection = ({ paintings }) => {
       {paintings && (
         <ul className={cx('painting-list')}>
           {paintings.map((painting) => (
-            <li>
+            <li key={painting.id}>
               <PaintingCard {...painting} />
             </li>
           ))}
