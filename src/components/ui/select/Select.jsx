@@ -7,14 +7,23 @@ import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);
 
-const Select = ({ className, title, options, optionName, value, onChange }) => {
+const Select = ({ className, title, options, optionName, onChange }) => {
+  const [displayedValue, setDisplayedValue] = useState(title);
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
 
   const toggleOpen = () => setIsOpen((prev) => !prev);
   useOutsideClick(ref, isOpen ? toggleOpen : () => {});
 
-  const handleClearButtonClick = () => onChange('');
+  const handleClearButtonClick = () => {
+    onChange('');
+    setDisplayedValue(title);
+  };
+
+  const handleOptionClick = (optionId, optionValue) => {
+    onChange(optionId);
+    setDisplayedValue(optionValue);
+  };
 
   return (
     <div
@@ -23,22 +32,22 @@ const Select = ({ className, title, options, optionName, value, onChange }) => {
       })}
       ref={ref}
       onClick={toggleOpen}>
-      <span className={cx('title')}>{value || title}</span>
-      {value && <ClearButton className={cx('clear-button')} onClick={handleClearButtonClick} />}
+      <span className={cx('title')}>{displayedValue}</span>
+      {displayedValue !== title && (
+        <ClearButton className={cx('clear-button')} onClick={handleClearButtonClick} />
+      )}
       <Arrow className={cx('arrow')} isOpen={isOpen} />
       {isOpen && options && (
-        <>
-          <ul className={cx('option-list')}>
-            {options.map((option) => (
-              <li
-                className={cx('option')}
-                key={option.id}
-                onClick={() => onChange(option[optionName])}>
-                {option[optionName]}
-              </li>
-            ))}
-          </ul>
-        </>
+        <ul className={cx('option-list')}>
+          {options.map((option) => (
+            <li
+              key={option.id}
+              className={cx('option')}
+              onClick={() => handleOptionClick(option.id, option[optionName])}>
+              {option[optionName]}
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );
