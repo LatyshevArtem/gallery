@@ -1,0 +1,21 @@
+@import "../../../variables.scss";
+
+.painting-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 280px);
+  justify-content: center;
+  gap: 20px;
+  list-style: none;
+
+  @media (min-width: $tablet-width) {
+    grid-template-columns: repeat(auto-fill, 340px);
+  }
+
+  @media (min-width: $big-tablet-width) {
+    grid-template-columns: repeat(auto-fill, 300px);
+  }
+
+  @media (min-width: $desktop-width) {
+    grid-template-columns: repeat(auto-fill, 360px);
+  }
+}
