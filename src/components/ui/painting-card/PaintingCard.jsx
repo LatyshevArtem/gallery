@@ -1,6 +1,7 @@
 import cn from 'classnames/bind';
 import useMatchMedia from '../../../hooks/useMatchMedia';
 import getImageSizeByScreen from '../../../utils/get-image-size';
+import { BASE_URL } from '../../../consts';
 import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);
@@ -24,7 +25,7 @@ const PAINTING_CARD_SIZES = {
   },
 };
 
-const PaintingCard = ({ imgSrc, name, author, created, location }) => {
+const PaintingCard = ({ imageUrl, name, author, created, location }) => {
   const screens = useMatchMedia();
   const { width, height } = getImageSizeByScreen(PAINTING_CARD_SIZES, screens);
 
@@ -32,7 +33,7 @@ const PaintingCard = ({ imgSrc, name, author, created, location }) => {
     <figure className={cx('painting-container')}>
       <img
         className={cx('painting')}
-        src={imgSrc}
+        src={BASE_URL + imageUrl}
         width={width}
         height={height}
         alt={`Painting by ${author}: ${name}. Date of painting: ${created}. Currently located in ${location}.`}
