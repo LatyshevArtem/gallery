@@ -1,22 +1,25 @@
 import cn from 'classnames/bind';
-import { useState } from 'react';
 import Input from '../../ui/input/Input';
 import Select from '../../ui/select/Select';
 import Range from '../../ui/range/Range';
 import styles from './styles.module.scss';
 
-import { authors } from '../../../mocks/authors';
-import { locations } from '../../../mocks/locations';
-
 const cx = cn.bind(styles);
 
-const Filter = () => {
-  const [paintingName, setPaintingName] = useState('');
-  const [author, setAuthor] = useState('');
-  const [location, setLocation] = useState('');
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateBefore, setDateBefore] = useState('');
-
+const Filter = ({
+  name,
+  onChangeName,
+  authors,
+  authorId,
+  onChangeAuthorId,
+  locations,
+  locationId,
+  onChangeLocationId,
+  dateFrom,
+  onChangeDateFrom,
+  dateBefore,
+  onChangeDateBefore,
+}) => {
   return (
     <form className={cx('filter')} method="get">
       <label className="visually-hidden" htmlFor="name">
@@ -24,8 +27,8 @@ const Filter = () => {
       </label>
       <Input
         className={cx('filter-option')}
-        value={paintingName}
-        onChange={setPaintingName}
+        value={name}
+        onChange={onChangeName}
         type="text"
         id="name"
         name="name"
@@ -36,30 +39,30 @@ const Filter = () => {
         title={'Author'}
         options={authors}
         optionName={'name'}
-        value={author}
-        onChange={setAuthor}
+        value={authorId}
+        onChange={onChangeAuthorId}
       />
       <Select
         className={cx('filter-option')}
         title={'Location'}
         options={locations}
         optionName={'location'}
-        value={location}
-        onChange={setLocation}
+        value={locationId}
+        onChange={onChangeLocationId}
       />
       <Range
         className={cx('filter-option')}
         title={'Created'}
         firstInputProps={{
           value: dateFrom,
-          onChange: setDateFrom,
+          onChange: onChangeDateFrom,
           name: 'date-from',
           id: 'date-from',
           placeholder: 'from',
         }}
         secondInputProps={{
           value: dateBefore,
-          onChange: setDateBefore,
+          onChange: onChangeDateBefore,
           name: 'date-before',
           id: 'date-before',
           placeholder: 'before',
