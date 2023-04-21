@@ -1,0 +1,69 @@
+@import '../../../variables.scss';
+
+.pagination {
+  display: flex;
+  width: 280px;
+  height: 41px;
+  list-style: none;
+}
+
+.pagination-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 39px;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+
+  &:first-child,
+  &:last-child {
+    width: 41px;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+  }
+
+  &:first-child {
+    border-radius: 8px 0 0 8px;
+  }
+
+  &:last-child {
+    border-radius: 0 8px 8px 0;
+  }
+
+  &:hover {
+    background-color: #ededed;
+  }
+}
+
+.pagination-item--disabled {
+  opacity: 0.3;
+  cursor: auto;
+
+  &:hover {
+    background-color: #ffffff;
+  }
+}
+
+.pagination-item--number {
+  width: 40px;
+  border-left: 1px solid black;
+
+  &:nth-of-type(5) {
+    width: 41px;
+    border-right: 1px solid black;
+  }
+}
+
+.pagination-item--active {
+  color: #ffffff;
+  background-color: #000000;
+  cursor: auto;
+
+  &:hover {
+    background-color: #000000;
+  }
+}
