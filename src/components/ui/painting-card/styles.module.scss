@@ -51,10 +51,15 @@
   font-weight: 700;
   line-height: 20px;
   font-style: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .painting-container:hover .painting-name {
   margin-bottom: 6px;
+  white-space: break-spaces;
+  overflow: visible;
 }
 
 .painting-data-list {
