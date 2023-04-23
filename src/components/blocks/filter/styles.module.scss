@@ -19,12 +19,12 @@
 
   @media (min-width: $tablet-width) {
     flex-grow: 1;
+    flex-shrink: 0;
     width: 160px;
     max-width: 220px;
   }
 
-  @media (min-width: $tablet-width) {
-    flex-grow: 1;
+  @media (min-width: $big-tablet-width) {
     width: 220px;
     max-width: 265px;
   }
