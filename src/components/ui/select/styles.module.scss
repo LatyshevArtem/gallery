@@ -62,23 +62,45 @@
   border: 1px solid #000000;
   border-radius: 0 0 8px 8px;
   border-top: none;
-  padding-top: 10px;
-  padding-bottom: 25px;
   background-color: #ffffff;
   list-style: none;
   z-index: 1;
 
   &::before {
     content: "";
-    position: absolute;
+    position: sticky;
+    display: block;
     top: 0;
     width: 100%;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.3);
+    height: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #ffffff;
+    cursor: auto;
+  }
+
+  @media (min-width: $tablet-width) {
+    overflow-y: scroll;
+    height: 355px;
+
+    &::after {
+      content: "";
+      position: sticky;
+      display: block;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 25px;
+      background-color: #ffffff;
+      cursor: auto;
+    }
   }
 
   @media (min-width: $desktop-width) {
-    padding-bottom: 10px;
+    height: 300px;
+
+    &::after {
+      height: 10px;
+    }
   }
 }
 
