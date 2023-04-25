@@ -4,14 +4,28 @@ import styles from './styles.modules.scss';
 
 const cx = cn.bind(styles);
 
-const PaintingsSection = ({ paintings }) => {
+const PaintingsSection = ({ paintings, authors, locations }) => {
+  const authorsById = new Map();
+  authors.forEach((author) => {
+    authorsById.set(author.id, author.name);
+  });
+
+  const locationsById = new Map();
+  locations.forEach((location) => {
+    locationsById.set(location.id, location.location);
+  });
+
   return (
     <section>
       {paintings && (
         <ul className={cx('painting-list')}>
           {paintings.map((painting) => (
             <li key={painting.id}>
-              <PaintingCard {...painting} />
+              <PaintingCard
+                {...painting}
+                author={authorsById.get(painting.authorId)}
+                location={locationsById.get(painting.locationId)}
+              />
             </li>
           ))}
         </ul>
