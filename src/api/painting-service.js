@@ -8,7 +8,7 @@ const getQueryByLimit = (limit) => `_limit=${limit}`;
 
 const getQueryByName = (name) => {
   const formattedName = name.trim();
-  return formattedName && `name_like=${new RegExp(`^${formattedName}`, 'ig')}`;
+  return formattedName && `name_like=^${formattedName}`;
 };
 
 const getQueryByAuthorId = (authorId) => authorId && `authorId=${authorId}`;
