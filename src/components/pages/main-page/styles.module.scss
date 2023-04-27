@@ -11,3 +11,15 @@
 .filter-wrapper {
   margin-bottom: 45px;
 }
+
+.paintings-section-wrapper {
+  margin-bottom: 30px;
+
+  @media (min-width: $tablet-width) {
+    margin-bottom: 35px;
+  }
+
+  @media (min-width: $big-tablet-width) {
+    margin-bottom: 40px;
+  }
+}
