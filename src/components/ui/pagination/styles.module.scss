@@ -52,9 +52,14 @@
   width: 40px;
   border-left: 1px solid black;
 
+  &:nth-of-type(4),
   &:nth-of-type(5) {
     width: 41px;
     border-right: 1px solid black;
+  }
+
+  &:nth-of-type(5) {
+    border-left: none;
   }
 }
 
