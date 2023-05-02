@@ -1,5 +1,6 @@
 import cn from 'classnames/bind';
-import { useState, useEffect } from 'react';
+import useComponentDidMount from '../../../hooks/useComponentDidMount';
+import { useState, useEffect, useRef } from 'react';
 import useDebounce from '../../../hooks/useDebounce';
 import AuthorService from '../../../api/author-service';
 import LocationService from '../../../api/location-service';
@@ -17,6 +18,8 @@ const LIMIT = 12;
 const cx = cn.bind(styles);
 
 const MainPage = () => {
+  const isComponentMounted = useComponentDidMount();
+
   const [page, setPage] = useState(1);
   const [name, setName] = useState('');
   const [authors, setAuthors] = useState([]);
@@ -27,6 +30,8 @@ const MainPage = () => {
   const [dateBefore, setDateBefore] = useState('');
   const [paintings, setPaintings] = useState([]);
   const [paintingsTotalCount, setPaintingsTotalCount] = useState(0);
+
+  const didUserChangePageRef = useRef(false);
 
   const debouncedName = useDebounce(name, 250);
   const debouncedDateFrom = useDebounce(dateFrom, 250);
@@ -45,8 +50,9 @@ const MainPage = () => {
   };
 
   const fetchPaintings = async () => {
+    const pageToQuery = didUserChangePageRef.current ? page : 1;
     const { paintings, paintingsTotalCount } = await PaintingService.getPaintings(
-      page,
+      pageToQuery,
       LIMIT,
       debouncedName,
       authorId,
@@ -55,21 +61,27 @@ const MainPage = () => {
       debouncedDateBefore
     );
     setPaintings(paintings);
-    setPaintingsTotalCount(parseInt(paintingsTotalCount));
+    setPaintingsTotalCount(paintingsTotalCount);
   };
 
   useEffect(() => {
     fetchAuthors();
     fetchLocations();
+    fetchPaintings();
   }, []);
 
   useEffect(() => {
-    fetchPaintings();
+    if (isComponentMounted && didUserChangePageRef.current) {
+      fetchPaintings();
+    }
   }, [page]);
 
   useEffect(() => {
-    setPage(1);
-    fetchPaintings();
+    if (isComponentMounted) {
+      didUserChangePageRef.current = false;
+      fetchPaintings();
+      setPage(1);
+    }
   }, [debouncedName, authorId, locationId, debouncedDateFrom, debouncedDateBefore]);
 
   return (
@@ -97,7 +109,14 @@ const MainPage = () => {
         <div className={cx('paintings-section-wrapper')}>
           <PaintingsSection paintings={paintings} authors={authors} locations={locations} />
         </div>
-        <Pagination page={page} endPageNumber={endPageNumber} onChangePage={setPage} />
+        <Pagination
+          page={page}
+          endPageNumber={endPageNumber}
+          onChangePage={(page) => {
+            didUserChangePageRef.current = true;
+            setPage(page);
+          }}
+        />
       </PageContent>
     </PageWrapper>
   );
