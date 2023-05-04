@@ -1,3 +1,5 @@
-.arrow--opened {
-  transform: rotate(180deg);
+.arrow {
+  &--opened {
+    transform: rotate(180deg);
+  }
 }

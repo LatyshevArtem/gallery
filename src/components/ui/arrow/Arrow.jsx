@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);
 
-const Arrow = ({ isOpen, className }) => {
+const Arrow = ({ className, isOpen }) => {
   return (
     <ArrowIcon
       className={cx(className, {
