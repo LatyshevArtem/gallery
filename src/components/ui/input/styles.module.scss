@@ -21,6 +21,21 @@
     outline: none;
   }
 
+  &--dark {
+    border-color: #ffffff;
+    color: #ffffff;
+    background-color: #0c0c0c;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    &:focus {
+      border-color: #ffffff;
+      outline: none;
+    }
+  }
+
   @media (min-width: $tablet-width) {
     width: 160px;
     font-size: 13px;
