@@ -1,7 +1,5 @@
 @import "../../../variables.scss";
 
-$change-theme-button-color--light-theme: #000000;
-
 .change-theme-button {
   border: none;
   width: 22px;
@@ -9,14 +7,10 @@ $change-theme-button-color--light-theme: #000000;
   background-color: transparent;
   cursor: pointer;
 
-  @media (min-width: $tablet-width) {
-    width: 20px;
-    height: 20px;
+  &__icon {
+    width: inherit;
+    height: inherit;
   }
-}
-
-.change-theme-button svg {
-  color: $change-theme-button-color--light-theme;
 
   @media (min-width: $tablet-width) {
     width: 20px;
