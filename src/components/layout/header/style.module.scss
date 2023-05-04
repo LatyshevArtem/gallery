@@ -3,3 +3,11 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.change-theme-button {
+  fill: #000000;
+
+  &--dark {
+    fill: #ffffff;
+  }
+}
