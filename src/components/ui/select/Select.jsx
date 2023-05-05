@@ -1,5 +1,6 @@
 import cn from 'classnames/bind';
-import { useState, useRef } from 'react';
+import { useContext, useState, useRef } from 'react';
+import ThemeContext from '../../../contexts/ThemeContext';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import ClearButton from '../clear-button/ClearButton';
 import Arrow from '../arrow/Arrow';
@@ -8,6 +9,7 @@ import styles from './styles.module.scss';
 const cx = cn.bind(styles);
 
 const Select = ({ className, title, options, optionName, onChange }) => {
+  const { isDarkTheme } = useContext(ThemeContext);
   const [displayedValue, setDisplayedValue] = useState(title);
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
@@ -29,6 +31,7 @@ const Select = ({ className, title, options, optionName, onChange }) => {
     <div
       className={cx(className, 'select', {
         'select--open': isOpen,
+        'select--dark': isDarkTheme,
       })}
       ref={ref}
       onClick={toggleOpen}>
