@@ -5,16 +5,16 @@ import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);
 
-const NavigateArrow = ({ className, doubleArrow, back }) => {
-  return doubleArrow ? (
+const NavigateArrow = ({ className, isDoubleArrow, back }) => {
+  return isDoubleArrow ? (
     <DoubleArrow
-      className={cx(className, 'arrow', {
+      className={cx(className, {
         'arrow--back': back,
       })}
     />
   ) : (
     <Arrow
-      className={cx(className, 'arrow', {
+      className={cx(className, {
         'arrow--back': back,
       })}
     />

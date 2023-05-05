@@ -1,3 +1,5 @@
-.arrow--back {
-  transform: rotate(180deg);
+.arrow {
+  &--back {
+    transform: rotate(180deg);
+  }
 }
