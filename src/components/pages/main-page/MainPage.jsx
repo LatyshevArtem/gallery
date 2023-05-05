@@ -39,6 +39,17 @@ const MainPage = () => {
 
   const endPageNumber = Math.ceil(paintingsTotalCount / LIMIT);
 
+  const handleChangePage = (page) => {
+    didUserChangePageRef.current = true;
+    setPage(page);
+  };
+
+  const handleChangeName = (evt) => setName(evt.target.value);
+  const handleChangeAuthorId = (selectedAuthorId) => setAuthorId(selectedAuthorId);
+  const handleChangeLocationId = (selectedLocationId) => setLocationId(selectedLocationId);
+  const handleChangeDateFrom = (evt) => setDateFrom(evt.target.value);
+  const handleChangeDateBefore = (evt) => setDateBefore(evt.target.value);
+
   const fetchAuthors = async () => {
     const authors = await AuthorService.getAuthors();
     setAuthors(authors);
@@ -93,30 +104,23 @@ const MainPage = () => {
         <div className={cx('filter-wrapper')}>
           <Filter
             name={name}
-            onChangeName={setName}
+            onChangeName={handleChangeName}
             authors={authors}
             authorId={authorId}
-            onChangeAuthorId={setAuthorId}
+            onChangeAuthorId={handleChangeAuthorId}
             locations={locations}
             locationId={locationId}
-            onChangeLocationId={setLocationId}
+            onChangeLocationId={handleChangeLocationId}
             dateFrom={dateFrom}
-            onChangeDateFrom={setDateFrom}
+            onChangeDateFrom={handleChangeDateFrom}
             dateBefore={dateBefore}
-            onChangeDateBefore={setDateBefore}
+            onChangeDateBefore={handleChangeDateBefore}
           />
         </div>
         <div className={cx('paintings-section-wrapper')}>
           <PaintingsSection paintings={paintings} authors={authors} locations={locations} />
         </div>
-        <Pagination
-          page={page}
-          endPageNumber={endPageNumber}
-          onChangePage={(page) => {
-            didUserChangePageRef.current = true;
-            setPage(page);
-          }}
-        />
+        <Pagination page={page} endPageNumber={endPageNumber} onChangePage={handleChangePage} />
       </PageContent>
     </PageWrapper>
   );
