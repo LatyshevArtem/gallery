@@ -1,5 +1,6 @@
 import cn from 'classnames/bind';
-import { useState, useRef } from 'react';
+import { useContext, useState, useRef } from 'react';
+import ThemeContex from '../../../contexts/ThemeContext';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import Arrow from '../arrow/Arrow';
 import Input from '../input/Input';
@@ -15,6 +16,7 @@ const Range = ({
   secondInputLable,
   secondInputProps,
 }) => {
+  const { isDarkTheme } = useContext(ThemeContex);
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
 
@@ -26,11 +28,12 @@ const Range = ({
     <div
       className={cx(className, 'range', {
         'range--open': isOpen,
+        'range--dark': isDarkTheme,
       })}
       ref={ref}>
       <div className={cx('title-wrapper')} onClick={toggleOpen}>
         <span className={cx('title')}>{title}</span>
-        <Arrow className={cx('arrow')} isOpen={isOpen} />
+        <Arrow className={cx('arrow')} isDarkTheme={isDarkTheme} isOpen={isOpen} />
       </div>
       {isOpen && (
         <div className={cx('controls-wrapper')}>
