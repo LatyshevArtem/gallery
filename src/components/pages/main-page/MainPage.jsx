@@ -10,6 +10,7 @@ import PageContent from '../../layout/page-content/PageContent';
 import Header from '../../layout/header/Header';
 import Filter from '../../blocks/filter/Filter';
 import PaintingsSection from '../../blocks/paintings-section/PaintingsSection';
+import PaintingsNotFoundMessage from '../../ui/paintings-not-found-message/PaintingsNotFoundMessage';
 import Pagination from '../../ui/pagination/Pagination';
 import styles from './styles.module.scss';
 
@@ -117,10 +118,16 @@ const MainPage = () => {
             onChangeDateBefore={handleChangeDateBefore}
           />
         </div>
-        <div className={cx('paintings-section-wrapper')}>
-          <PaintingsSection paintings={paintings} authors={authors} locations={locations} />
-        </div>
-        <Pagination page={page} endPageNumber={endPageNumber} onChangePage={handleChangePage} />
+        {paintings.length > 0 ? (
+          <div className={cx('paintings-section-wrapper')}>
+            <PaintingsSection paintings={paintings} authors={authors} locations={locations} />
+          </div>
+        ) : (
+          isComponentMounted && <PaintingsNotFoundMessage />
+        )}
+        {paintings.length > 0 && (
+          <Pagination page={page} endPageNumber={endPageNumber} onChangePage={handleChangePage} />
+        )}
       </PageContent>
     </PageWrapper>
   );
