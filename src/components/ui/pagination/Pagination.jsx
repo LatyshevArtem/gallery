@@ -1,4 +1,6 @@
 import cn from 'classnames/bind';
+import { useContext } from 'react';
+import ThemeContex from '../../../contexts/ThemeContext';
 import getPageNumber from '../../../utils/get-page-number';
 import NavigateArrow from '../navigate-arrow/NavigateArrow';
 import styles from './styles.module.scss';
@@ -6,14 +8,16 @@ import styles from './styles.module.scss';
 const cx = cn.bind(styles);
 
 const Pagination = ({ сlassName, page, endPageNumber, onChangePage }) => {
-  const handleArrowNavigateButtonClick = (isDoubleArrow, isForwardArrow) => {
-    if (isDoubleArrow && !isForwardArrow && isLeftArrowNavigateButtonAvailable) {
+  const { isDarkTheme } = useContext(ThemeContex);
+
+  const handleArrowNavigateButtonClick = (isDoubleArrow, isBackArrow) => {
+    if (isDoubleArrow && isBackArrow && isLeftArrowNavigateButtonAvailable) {
       onChangePage(1);
-    } else if (!isDoubleArrow && !isForwardArrow && isLeftArrowNavigateButtonAvailable) {
+    } else if (!isDoubleArrow && isBackArrow && isLeftArrowNavigateButtonAvailable) {
       onChangePage((prev) => prev - 1);
-    } else if (!isDoubleArrow && isForwardArrow && isRightArrowNavigateButtonAvailable) {
+    } else if (!isDoubleArrow && !isBackArrow && isRightArrowNavigateButtonAvailable) {
       onChangePage((prev) => prev + 1);
-    } else if (isDoubleArrow && isForwardArrow && isRightArrowNavigateButtonAvailable) {
+    } else if (isDoubleArrow && !isBackArrow && isRightArrowNavigateButtonAvailable) {
       onChangePage(endPageNumber);
     }
   };
@@ -39,7 +43,15 @@ const Pagination = ({ сlassName, page, endPageNumber, onChangePage }) => {
     return numbersOfPage;
   };
 
+  const leftArrowsNavigate = [
+    { isDoubleArrow: true, back: true },
+    { isDoubleArrow: false, back: true },
+  ];
   const numbersOfPage = getNumbersOfPage();
+  const rightArrowsNavigate = [
+    { isDoubleArrow: false, back: false },
+    { isDoubleArrow: true, back: false },
+  ];
 
   const isLeftArrowNavigateButtonAvailable = page !== 1;
   const isLeftArrowNavigateButtonNotAvailable = !isLeftArrowNavigateButtonAvailable;
@@ -48,46 +60,41 @@ const Pagination = ({ сlassName, page, endPageNumber, onChangePage }) => {
   const isRightArrowNavigateButtonNotAvailable = !isRightArrowNavigateButtonAvailable;
 
   return (
-    <ul className={cx(сlassName, 'pagination')}>
-      <li
-        className={cx('pagination-item', {
-          'pagination-item--disabled': isLeftArrowNavigateButtonNotAvailable,
-        })}
-        onClick={() => handleArrowNavigateButtonClick(true, false)}>
-        <NavigateArrow doubleArrow={true} back={true} />
-      </li>
-      <li
-        className={cx('pagination-item', {
-          'pagination-item--disabled': isLeftArrowNavigateButtonNotAvailable,
-        })}
-        onClick={() => handleArrowNavigateButtonClick(false, false)}>
-        <NavigateArrow back={true} />
-      </li>
+    <ul
+      className={cx(сlassName, 'pagination', {
+        'pagination--dark': isDarkTheme,
+      })}>
+      {leftArrowsNavigate.map(({ isDoubleArrow, back }, index) => (
+        <li
+          className={cx('pagination__item', {
+            'pagination__item--disabled': isLeftArrowNavigateButtonNotAvailable,
+          })}
+          onClick={() => handleArrowNavigateButtonClick(isDoubleArrow, back)}
+          key={index}>
+          <NavigateArrow isDoubleArrow={isDoubleArrow} back={back} />
+        </li>
+      ))}
       {numbersOfPage.map((pageNumber) => (
         <li
-          className={cx('pagination-item', 'pagination-item--number', {
-            'pagination-item--disabled': checkIsNumberNavigateButtonNotAvailable(pageNumber),
-            'pagination-item--active': checkIsNumberNavigateButtonActive(pageNumber),
+          className={cx('pagination__item', 'pagination__item--number', {
+            'pagination__item--disabled': checkIsNumberNavigateButtonNotAvailable(pageNumber),
+            'pagination__item--active': checkIsNumberNavigateButtonActive(pageNumber),
           })}
           key={pageNumber}
           onClick={() => handleNumberNavigateButtonClick(pageNumber)}>
           {pageNumber}
         </li>
       ))}
-      <li
-        className={cx('pagination-item', {
-          'pagination-item--disabled': isRightArrowNavigateButtonNotAvailable,
-        })}
-        onClick={() => handleArrowNavigateButtonClick(false, true)}>
-        <NavigateArrow />
-      </li>
-      <li
-        className={cx('pagination-item', {
-          'pagination-item--disabled': isRightArrowNavigateButtonNotAvailable,
-        })}
-        onClick={() => handleArrowNavigateButtonClick(true, true)}>
-        <NavigateArrow doubleArrow={true} />
-      </li>
+      {rightArrowsNavigate.map(({ isDoubleArrow, back }, index) => (
+        <li
+          className={cx('pagination__item', {
+            'pagination__item--disabled': isRightArrowNavigateButtonNotAvailable,
+          })}
+          onClick={() => handleArrowNavigateButtonClick(isDoubleArrow, back)}
+          key={index}>
+          <NavigateArrow isDoubleArrow={isDoubleArrow} back={back} />
+        </li>
+      ))}
     </ul>
   );
 };
