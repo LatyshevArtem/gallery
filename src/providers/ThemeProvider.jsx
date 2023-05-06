@@ -4,14 +4,15 @@ import { DARK_COLOR_SCHEME, LIGHT_COLOR_SHEME } from '../consts';
 import { saveUserColorScheme } from '../utils/save-user-color-scheme';
 import ThemeContex from '../contexts/ThemeContext';
 
-const ThemeProvider = ({ children }) => {
-  const userColorScheme = getUserColorScheme();
-  const [isDarkTheme, setIsDarkTheme] = useState(userColorScheme === DARK_COLOR_SCHEME);
+const userColorScheme = getUserColorScheme();
+const initialIsDarkTheme = userColorScheme === DARK_COLOR_SCHEME;
 
-  const toggleTheme = () => {
-    saveUserColorScheme(!isDarkTheme ? DARK_COLOR_SCHEME : LIGHT_COLOR_SHEME);
-    setIsDarkTheme((prevTheme) => !prevTheme);
-  };
+const ThemeProvider = ({ children }) => {
+  const [isDarkTheme, setIsDarkTheme] = useState(initialIsDarkTheme);
+
+  saveUserColorScheme(isDarkTheme ? DARK_COLOR_SCHEME : LIGHT_COLOR_SHEME);
+
+  const toggleTheme = () => setIsDarkTheme((prevTheme) => !prevTheme);
 
   return (
     <ThemeContex.Provider value={{ isDarkTheme, toggleTheme }}>{children}</ThemeContex.Provider>
