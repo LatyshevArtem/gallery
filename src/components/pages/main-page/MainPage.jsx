@@ -10,6 +10,7 @@ import PageContent from '../../layout/page-content/PageContent';
 import Header from '../../layout/header/Header';
 import Filter from '../../blocks/filter/Filter';
 import PaintingsSection from '../../blocks/paintings-section/PaintingsSection';
+import PaintingsSectionSkeleton from '../../blocks/paintings-section/PaintingsSectionSkeleton';
 import PaintingsNotFoundMessage from '../../ui/paintings-not-found-message/PaintingsNotFoundMessage';
 import Pagination from '../../ui/pagination/Pagination';
 import styles from './styles.module.scss';
@@ -22,21 +23,24 @@ const MainPage = () => {
   const isComponentMounted = useComponentDidMount();
 
   const [page, setPage] = useState(1);
-  const [name, setName] = useState('');
+  const [filters, setFilters] = useState({
+    name: '',
+    authorId: '',
+    locationId: '',
+    dateFrom: '',
+    dateBefore: '',
+  });
   const [authors, setAuthors] = useState([]);
-  const [authorId, setAuthorId] = useState('');
   const [locations, setLocations] = useState([]);
-  const [locationId, setLocationId] = useState('');
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateBefore, setDateBefore] = useState('');
-  const [paintings, setPaintings] = useState([]);
+  const [paintings, setPaintings] = useState(null);
   const [paintingsTotalCount, setPaintingsTotalCount] = useState(0);
+  const [arePaintingsLoading, setArePaintingsLoading] = useState(true);
 
   const didUserChangePageRef = useRef(false);
 
-  const debouncedName = useDebounce(name, 250);
-  const debouncedDateFrom = useDebounce(dateFrom, 250);
-  const debouncedDateBefore = useDebounce(dateBefore, 250);
+  const debouncedName = useDebounce(filters.name, 250);
+  const debouncedDateFrom = useDebounce(filters.dateFrom, 250);
+  const debouncedDateBefore = useDebounce(filters.dateBefore, 250);
 
   const endPageNumber = Math.ceil(paintingsTotalCount / LIMIT);
 
@@ -45,11 +49,11 @@ const MainPage = () => {
     setPage(page);
   };
 
-  const handleChangeName = (evt) => setName(evt.target.value);
-  const handleChangeAuthorId = (selectedAuthorId) => setAuthorId(selectedAuthorId);
-  const handleChangeLocationId = (selectedLocationId) => setLocationId(selectedLocationId);
-  const handleChangeDateFrom = (evt) => setDateFrom(evt.target.value);
-  const handleChangeDateBefore = (evt) => setDateBefore(evt.target.value);
+  const handleChangeName = (evt) => setFilters({ ...filters, name: evt.target.value });
+  const handleChangeAuthorId = (authorId) => setFilters({ ...filters, authorId });
+  const handleChangeLocationId = (locationId) => setFilters({ ...filters, locationId });
+  const handleChangeDateFrom = (evt) => setFilters({ ...filters, dateFrom: evt.target.value });
+  const handleChangeDateBefore = (evt) => setFilters({ ...filters, dateBefore: evt.target.value });
 
   const fetchAuthors = async () => {
     const authors = await AuthorService.getAuthors();
@@ -62,18 +66,21 @@ const MainPage = () => {
   };
 
   const fetchPaintings = async () => {
+    const timer = setTimeout(() => setArePaintingsLoading(true), 250);
     const pageToQuery = didUserChangePageRef.current ? page : 1;
     const { paintings, paintingsTotalCount } = await PaintingService.getPaintings(
       pageToQuery,
       LIMIT,
       debouncedName,
-      authorId,
-      locationId,
+      filters.authorId,
+      filters.locationId,
       debouncedDateFrom,
       debouncedDateBefore
     );
     setPaintings(paintings);
     setPaintingsTotalCount(paintingsTotalCount);
+    clearTimeout(timer);
+    setArePaintingsLoading(false);
   };
 
   useEffect(() => {
@@ -94,7 +101,7 @@ const MainPage = () => {
       fetchPaintings();
       setPage(1);
     }
-  }, [debouncedName, authorId, locationId, debouncedDateFrom, debouncedDateBefore]);
+  }, [debouncedName, filters.authorId, filters.locationId, debouncedDateFrom, debouncedDateBefore]);
 
   return (
     <PageWrapper>
@@ -104,28 +111,26 @@ const MainPage = () => {
         </div>
         <div className={cx('filter-wrapper')}>
           <Filter
-            name={name}
+            {...filters}
             onChangeName={handleChangeName}
             authors={authors}
-            authorId={authorId}
             onChangeAuthorId={handleChangeAuthorId}
             locations={locations}
-            locationId={locationId}
             onChangeLocationId={handleChangeLocationId}
-            dateFrom={dateFrom}
             onChangeDateFrom={handleChangeDateFrom}
-            dateBefore={dateBefore}
             onChangeDateBefore={handleChangeDateBefore}
           />
         </div>
-        {paintings.length > 0 ? (
-          <div className={cx('paintings-section-wrapper')}>
+        <div className={cx('paintings-section-wrapper')}>
+          {arePaintingsLoading ? (
+            <PaintingsSectionSkeleton skeletonsLimit={LIMIT} />
+          ) : paintings?.length > 0 ? (
             <PaintingsSection paintings={paintings} authors={authors} locations={locations} />
-          </div>
-        ) : (
-          isComponentMounted && <PaintingsNotFoundMessage />
-        )}
-        {paintings.length > 0 && (
+          ) : (
+            paintings?.length === 0 && <PaintingsNotFoundMessage />
+          )}
+        </div>
+        {paintings?.length > 0 && (
           <Pagination page={page} endPageNumber={endPageNumber} onChangePage={handleChangePage} />
         )}
       </PageContent>
