@@ -53,6 +53,7 @@ const Filter = ({
       <Range
         className={cx('filter-option')}
         title={'Created'}
+        firstInputLabel={'Paintings created date from'}
         firstInputProps={{
           value: dateFrom,
           onChange: onChangeDateFrom,
@@ -60,6 +61,7 @@ const Filter = ({
           id: 'date-from',
           placeholder: 'from',
         }}
+        secondInputLabel={'Paintings created date before'}
         secondInputProps={{
           value: dateBefore,
           onChange: onChangeDateBefore,
