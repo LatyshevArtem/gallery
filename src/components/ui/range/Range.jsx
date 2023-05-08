@@ -13,7 +13,7 @@ const Range = ({
   title,
   firstInputLabel,
   firstInputProps,
-  secondInputLable,
+  secondInputLabel,
   secondInputProps,
 }) => {
   const { isDarkTheme } = useContext(ThemeContex);
@@ -44,9 +44,9 @@ const Range = ({
           )}
           <Input className={cx('input-range')} {...firstInputProps} type="number" />
           <div className={cx('bar')} />
-          {secondInputProps.id && secondInputLable && (
+          {secondInputProps.id && secondInputLabel && (
             <label className="visually-hidden" htmlFor={secondInputProps.id}>
-              {secondInputLable}
+              {secondInputLabel}
             </label>
           )}
           <Input className={cx('input-range')} {...secondInputProps} type="number" />
