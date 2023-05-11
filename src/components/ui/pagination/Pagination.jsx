@@ -1,7 +1,7 @@
 import cn from 'classnames/bind';
 import { useContext } from 'react';
 import ThemeContex from '../../../contexts/ThemeContext';
-import getPageNumber from '../../../utils/get-page-number';
+import { getPageNumber } from './utils/get-page-number';
 import NavigateArrow from '../navigate-arrow/NavigateArrow';
 import styles from './styles.module.scss';
 
@@ -14,9 +14,11 @@ const Pagination = ({ сlassName, page, endPageNumber, onChangePage }) => {
     if (isDoubleArrow && isBackArrow && isLeftArrowNavigateButtonAvailable) {
       onChangePage(1);
     } else if (!isDoubleArrow && isBackArrow && isLeftArrowNavigateButtonAvailable) {
-      onChangePage((prev) => prev - 1);
+      const prevPage = page - 1;
+      onChangePage(prevPage);
     } else if (!isDoubleArrow && !isBackArrow && isRightArrowNavigateButtonAvailable) {
-      onChangePage((prev) => prev + 1);
+      const nextPage = page + 1;
+      onChangePage(nextPage);
     } else if (isDoubleArrow && !isBackArrow && isRightArrowNavigateButtonAvailable) {
       onChangePage(endPageNumber);
     }
