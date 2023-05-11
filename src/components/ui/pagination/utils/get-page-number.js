@@ -37,4 +37,4 @@ const getPageNumber = (buttonNumber, page, endPageNumber) => {
   return pageNumber;
 };
 
-export default getPageNumber;
+export { getPageNumber };
