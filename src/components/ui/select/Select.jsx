@@ -1,5 +1,5 @@
 import cn from 'classnames/bind';
-import { useContext, useState, useRef } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 import ThemeContext from '../../../contexts/ThemeContext';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import ClearButton from '../clear-button/ClearButton';
@@ -8,8 +8,9 @@ import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);
 
-const Select = ({ className, title, options, optionName, onChange }) => {
+const Select = ({ className, title, options, value, onChange }) => {
   const { isDarkTheme } = useContext(ThemeContext);
+
   const [displayedValue, setDisplayedValue] = useState(title);
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef(null);
@@ -18,14 +19,17 @@ const Select = ({ className, title, options, optionName, onChange }) => {
   useOutsideClick(ref, isOpen ? toggleOpen : () => {});
 
   const handleClearButtonClick = () => {
-    onChange('');
+    onChange(null);
     setDisplayedValue(title);
   };
 
-  const handleOptionClick = (optionId, optionValue) => {
-    onChange(optionId);
-    setDisplayedValue(optionValue);
-  };
+  const handleOptionClick = (option) => onChange(option);
+
+  useEffect(() => {
+    if (value) {
+      setDisplayedValue(value);
+    }
+  }, [value]);
 
   return (
     <div
@@ -42,12 +46,9 @@ const Select = ({ className, title, options, optionName, onChange }) => {
       <Arrow className={cx('arrow')} isOpen={isOpen} />
       {isOpen && options && (
         <ul className={cx('option-list')}>
-          {options.map((option) => (
-            <li
-              key={option.id}
-              className={cx('option')}
-              onClick={() => handleOptionClick(option.id, option[optionName])}>
-              {option[optionName]}
+          {options.map((option, index) => (
+            <li className={cx('option')} key={index} onClick={() => handleOptionClick(option)}>
+              {option}
             </li>
           ))}
         </ul>
