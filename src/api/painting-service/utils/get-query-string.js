@@ -1,31 +1,23 @@
 import qs from 'qs';
 
-const getFormattedDateBefore = (dateBefore) => {
-  const dateBeforeWithoutWhitespaces = dateBefore.trim();
-  let formattedDateBefore = '';
-  if (dateBeforeWithoutWhitespaces.length > 4) {
-    formattedDateBefore = String(dateBeforeWithoutWhitespaces.length);
-  } else if (dateBeforeWithoutWhitespaces) {
-    formattedDateBefore = dateBeforeWithoutWhitespaces.padStart(4, '0');
+const getFormattedDate = (date) => {
+  const dateWithoutWhitespaces = date.trim();
+  let formattedDate = '';
+  if (dateWithoutWhitespaces.length > 4) {
+    formattedDate = String(dateWithoutWhitespaces.length);
+  } else if (dateWithoutWhitespaces) {
+    formattedDate = dateWithoutWhitespaces.padStart(4, '0');
   }
-  return formattedDateBefore;
-};
-
-const getFormattedDateFrom = (dateFrom) => {
-  const dateFromWithoutWhitespaces = dateFrom.trim();
-  let formattedDateFrom = '';
-  if (dateFromWithoutWhitespaces) {
-    formattedDateFrom = dateFromWithoutWhitespaces.padStart(4, '0');
-  }
-  return formattedDateFrom;
+  return formattedDate;
 };
 
 const getQueryString = (filters) => {
   const { page, limit, name, authorId, locationId, dateFrom, dateBefore } = filters;
   const nameWithoutWhitespaces = name.trim();
-  const formattedDateFrom = getFormattedDateFrom(dateFrom);
+  const isShouldCompareDateFromByLength = dateFrom.trim().length > 4;
+  const formattedDateFrom = getFormattedDate(dateFrom);
   const isShouldCompareDateBeforeByLength = dateBefore.trim().length > 4;
-  const formattedDateBefore = getFormattedDateBefore(dateBefore);
+  const formattedDateBefore = getFormattedDate(dateBefore);
   const queryString = qs.stringify(
     {
       _page: page,
@@ -33,6 +25,7 @@ const getQueryString = (filters) => {
       name_like: nameWithoutWhitespaces || null,
       authorId: authorId || null,
       locationId: locationId || null,
+      'created.length_gte': (isShouldCompareDateFromByLength && formattedDateFrom) || null,
       created_gte: formattedDateFrom || null,
       'created.length_lte': (isShouldCompareDateBeforeByLength && formattedDateBefore) || null,
       created_lte: formattedDateBefore || null,
