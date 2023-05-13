@@ -1,5 +1,5 @@
 import cn from 'classnames/bind';
-import { BASE_URL } from '../../../consts';
+import { BASE_URL } from '../../../../../consts';
 import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);

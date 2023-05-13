@@ -11,10 +11,10 @@ import PaintingService from '../../../api/painting-service';
 import PageWrapper from '../../layout/page-wrapper/PageWrapper';
 import PageContent from '../../layout/page-content/PageContent';
 import Header from '../../layout/header/Header';
-import Filter from '../../blocks/filter/Filter';
-import PaintingsSection from '../../blocks/paintings-section/PaintingsSection';
-import PaintingsSectionSkeleton from '../../blocks/paintings-section/PaintingsSectionSkeleton';
-import PaintingsNotFoundMessage from '../../ui/paintings-not-found-message/PaintingsNotFoundMessage';
+import Filter from './filter/Filter';
+import PaintingsSection from './paintings-section/PaintingsSection';
+import PaintingsSectionSkeleton from './paintings-section/PaintingsSectionSkeleton';
+import PaintingsNotFoundMessage from './paintings-not-found-message/PaintingsNotFoundMessage';
 import Pagination from '../../ui/pagination/Pagination';
 import styles from './styles.module.scss';
 

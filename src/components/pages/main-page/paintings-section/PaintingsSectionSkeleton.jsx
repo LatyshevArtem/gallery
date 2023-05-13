@@ -1,5 +1,5 @@
 import cn from 'classnames/bind';
-import RectangleSkeleton from '../../ui/reactangle-skeleton/RectangleSkeleton';
+import RectangleSkeleton from '../../../ui/reactangle-skeleton/RectangleSkeleton';
 import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);

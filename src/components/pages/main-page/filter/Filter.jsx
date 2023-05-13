@@ -1,7 +1,7 @@
 import cn from 'classnames/bind';
-import Input from '../../ui/input/Input';
-import Select from '../../ui/select/Select';
-import Range from '../../ui/range/Range';
+import Input from '../../../ui/input/Input';
+import Select from '../../../ui/select/Select';
+import Range from '../../../ui/range/Range';
 import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);

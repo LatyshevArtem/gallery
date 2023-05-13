@@ -1,5 +1,5 @@
 import cn from 'classnames/bind';
-import PaintingCard from '../../ui/painting-card/PaintingCard';
+import PaintingCard from './painting-card/PaintingCard';
 import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);

@@ -1,6 +1,6 @@
 import cn from 'classnames/bind';
 import { useContext } from 'react';
-import ThemeContex from '../../../contexts/ThemeContext';
+import ThemeContex from '../../../../contexts/ThemeContext';
 import styles from './styles.module.scss';
 
 const cx = cn.bind(styles);
