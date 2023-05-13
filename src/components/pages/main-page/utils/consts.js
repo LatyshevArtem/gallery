@@ -1,9 +1,8 @@
-export const FilterNames = {
-  Page: 'page',
-  Limit: 'limit',
-  Name: 'name',
-  AuthorId: 'authorId',
-  LocationId: 'locationId',
-  DateFrom: 'dateFrom',
-  DateBefore: 'dateBefore',
+export const FilterActions = {
+  ChangedPage: 'changedPage',
+  ChangedName: 'changedName',
+  ChangedAuthorName: 'changedAuthorName',
+  ChagenLocationName: 'changedLocationName',
+  ChangedDateFrom: 'changedDateFrom',
+  ChangedDateBefore: 'changedDateBefore',
 };

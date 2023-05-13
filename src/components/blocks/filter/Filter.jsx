@@ -11,10 +11,10 @@ const Filter = ({
   onChangeName,
   authorsNames,
   authorName,
-  onChangeAuthorId,
+  onChangeAuthorName,
   locationsNames,
   locationName,
-  onChangeLocationId,
+  onChangeLocationName,
   dateFrom,
   onChangeDateFrom,
   dateBefore,
@@ -39,14 +39,14 @@ const Filter = ({
         title={'Author'}
         options={authorsNames}
         value={authorName}
-        onChange={onChangeAuthorId}
+        onChange={onChangeAuthorName}
       />
       <Select
         className={cx('filter-option')}
         title={'Location'}
         options={locationsNames}
         value={locationName}
-        onChange={onChangeLocationId}
+        onChange={onChangeLocationName}
       />
       <Range
         className={cx('filter-option')}

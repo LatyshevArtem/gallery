@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import useComponentDidMount from '../../../hooks/useComponentDidMount';
 import { getInitialFilters } from './utils/get-initial-filters';
 import useDebounce from '../../../hooks/useDebounce';
-import { FilterNames } from './utils/consts';
+import { FilterActions } from './utils/consts';
 import { getQueryStringFromFilters } from './utils/get-query-string-from-filters';
 import AuthorService from '../../../api/author-service';
 import LocationService from '../../../api/location-service';
@@ -43,33 +43,33 @@ const MainPage = () => {
 
   const endPageNumber = Math.ceil(paintingsTotalCount / filters.limit);
 
-  const handleChangeFilters = (filterName, value) => {
-    switch (filterName) {
-      case FilterNames.Page: {
+  const filterDispatch = (action, value) => {
+    switch (action) {
+      case FilterActions.ChangedPage: {
         setFilters((prevFilters) => ({ ...prevFilters, page: value }));
         break;
       }
-      case FilterNames.Name: {
+      case FilterActions.ChangedName: {
         setFilters((prevFilters) => ({ ...prevFilters, page: 1, name: value }));
         break;
       }
-      case FilterNames.AuthorId: {
+      case FilterActions.ChangedAuthorName: {
         const author = authors.find(({ name }) => name === value);
         const id = author?.id || 0;
         setFilters((prevFilters) => ({ ...prevFilters, page: 1, authorId: id }));
         break;
       }
-      case FilterNames.LocationId: {
+      case FilterActions.ChagenLocationName: {
         const location = locations.find(({ location }) => location === value);
         const id = location?.id || 0;
         setFilters((prevFilters) => ({ ...prevFilters, page: 1, locationId: id }));
         break;
       }
-      case FilterNames.DateFrom: {
+      case FilterActions.ChangedDateFrom: {
         setFilters((prevFilters) => ({ ...prevFilters, page: 1, dateFrom: value }));
         break;
       }
-      case FilterNames.DateBefore: {
+      case FilterActions.ChangedDateBefore: {
         setFilters((prevFilters) => ({ ...prevFilters, page: 1, dateBefore: value }));
         break;
       }
@@ -80,14 +80,16 @@ const MainPage = () => {
     didUserNavigateThroughTheBrowserHistoryRef.current = false;
   };
 
-  const handleChangePage = (page) => handleChangeFilters(FilterNames.Page, page);
-  const handleChangeName = (evt) => handleChangeFilters(FilterNames.Name, evt.target.value);
-  const handleChangeAuthorId = (authorId) => handleChangeFilters(FilterNames.AuthorId, authorId);
-  const handleChangeLocationId = (locationId) =>
-    handleChangeFilters(FilterNames.LocationId, locationId);
-  const handleChangeDateFrom = (evt) => handleChangeFilters(FilterNames.DateFrom, evt.target.value);
+  const handleChangePage = (page) => filterDispatch(FilterActions.ChangedPage, page);
+  const handleChangeName = (evt) => filterDispatch(FilterActions.ChangedName, evt.target.value);
+  const handleChangeAuthorName = (authorName) =>
+    filterDispatch(FilterActions.ChangedAuthorName, authorName);
+  const handleChangeLocationName = (locationName) =>
+    filterDispatch(FilterActions.ChagenLocationName, locationName);
+  const handleChangeDateFrom = (evt) =>
+    filterDispatch(FilterActions.ChangedDateFrom, evt.target.value);
   const handleChangeDateBefore = (evt) =>
-    handleChangeFilters(FilterNames.DateBefore, evt.target.value);
+    filterDispatch(FilterActions.ChangedDateBefore, evt.target.value);
 
   const fetchAuthors = async () => {
     const authors = await AuthorService.getAuthors();
@@ -167,10 +169,10 @@ const MainPage = () => {
             onChangeName={handleChangeName}
             authorsNames={authorsNames}
             authorName={authorName}
-            onChangeAuthorId={handleChangeAuthorId}
+            onChangeAuthorName={handleChangeAuthorName}
             locationsNames={locationsNames}
             locationName={locationName}
-            onChangeLocationId={handleChangeLocationId}
+            onChangeLocationName={handleChangeLocationName}
             onChangeDateFrom={handleChangeDateFrom}
             onChangeDateBefore={handleChangeDateBefore}
           />
