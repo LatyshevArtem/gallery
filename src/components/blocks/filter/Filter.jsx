@@ -9,11 +9,11 @@ const cx = cn.bind(styles);
 const Filter = ({
   name,
   onChangeName,
-  authors,
-  authorId,
+  authorsNames,
+  authorName,
   onChangeAuthorId,
-  locations,
-  locationId,
+  locationsNames,
+  locationName,
   onChangeLocationId,
   dateFrom,
   onChangeDateFrom,
@@ -37,17 +37,15 @@ const Filter = ({
       <Select
         className={cx('filter-option')}
         title={'Author'}
-        options={authors}
-        optionName={'name'}
-        value={authorId}
+        options={authorsNames}
+        value={authorName}
         onChange={onChangeAuthorId}
       />
       <Select
         className={cx('filter-option')}
         title={'Location'}
-        options={locations}
-        optionName={'location'}
-        value={locationId}
+        options={locationsNames}
+        value={locationName}
         onChange={onChangeLocationId}
       />
       <Range
