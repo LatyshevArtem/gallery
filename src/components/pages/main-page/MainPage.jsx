@@ -43,8 +43,6 @@ const MainPage = () => {
 
   const endPageNumber = Math.ceil(paintingsTotalCount / filters.limit);
 
-  console.log({ authorName, locationName });
-
   const handleChangeFilters = (filterName, value) => {
     switch (filterName) {
       case FilterNames.Page: {
