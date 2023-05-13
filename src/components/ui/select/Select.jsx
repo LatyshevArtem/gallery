@@ -26,10 +26,8 @@ const Select = ({ className, title, options, value, onChange }) => {
   const handleOptionClick = (option) => onChange(option);
 
   useEffect(() => {
-    if (value) {
-      setDisplayedValue(value);
-    }
-  }, [value]);
+    setDisplayedValue(value || title);
+  }, [value, title]);
 
   return (
     <div
