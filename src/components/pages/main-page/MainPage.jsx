@@ -145,7 +145,7 @@ const MainPage = () => {
       const queryString = getQueryStringFromFilters(filters);
       const state = { filters };
       const unused = '';
-      const root = '/';
+      const root = '/gallery';
       window.history.pushState(state, unused, queryString || root);
     }
   }, [
