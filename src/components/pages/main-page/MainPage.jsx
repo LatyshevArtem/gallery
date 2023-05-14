@@ -145,8 +145,8 @@ const MainPage = () => {
       const queryString = getQueryStringFromFilters(filters);
       const state = { filters };
       const unused = '';
-      const root = '/gallery';
-      window.history.pushState(state, unused, queryString || root);
+      const defaultUrl = window.location.pathname;
+      window.history.pushState(state, unused, queryString || defaultUrl);
     }
   }, [
     filters.page,
