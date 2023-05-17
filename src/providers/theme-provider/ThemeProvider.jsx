@@ -7,7 +7,8 @@ import ThemeContex from '../../contexts/ThemeContext';
 const ThemeProvider = ({ children }) => {
   const [isDarkTheme, setIsDarkTheme] = useState(getInitialIsDarkTheme);
 
-  saveColorScheme(isDarkTheme ? DARK_COLOR_SCHEME : LIGHT_COLOR_SHEME);
+  const colorScheme = isDarkTheme ? DARK_COLOR_SCHEME : LIGHT_COLOR_SHEME;
+  saveColorScheme(colorScheme);
 
   const toggleTheme = () => setIsDarkTheme((prevTheme) => !prevTheme);
 
