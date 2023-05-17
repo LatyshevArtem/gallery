@@ -42,14 +42,24 @@ const Range = ({
               {firstInputLabel}
             </label>
           )}
-          <Input className={cx('input-range')} {...firstInputProps} type="number" />
+          <Input
+            className={cx('input-range')}
+            {...firstInputProps}
+            type="number"
+            inputmode="numeric"
+          />
           <div className={cx('bar')} />
           {secondInputProps.id && secondInputLabel && (
             <label className="visually-hidden" htmlFor={secondInputProps.id}>
               {secondInputLabel}
             </label>
           )}
-          <Input className={cx('input-range')} {...secondInputProps} type="number" />
+          <Input
+            className={cx('input-range')}
+            {...secondInputProps}
+            type="number"
+            inputmode="numeric"
+          />
         </div>
       )}
     </div>
